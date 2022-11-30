@@ -13,28 +13,31 @@
       <!--      Content-->
     </div>
   </div>
-  <div class="min-h-full bg-gray-200 flex items-center justify-center">
-    <Spinner />
-  </div>
-  <Toast />
 </template>
 
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
 import Sidebar from "./Sidebar.vue";
 import Navbar from "./Navbar.vue";
-
+import store from "../store";
 const {title} = defineProps({
   title: String
 })
 const sidebarOpened = ref(true);
-
 function toggleSidebar() {
   sidebarOpened.value = !sidebarOpened.value
 }
-
-
-
+function updateSidebarState() {
+  sidebarOpened.value = window.outerWidth > 768;
+}
+onMounted(() => {
+  store.dispatch('getUser')
+  updateSidebarState();
+  window.addEventListener('resize', updateSidebarState)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', updateSidebarState)
+})
 </script>
 
 <style scoped>

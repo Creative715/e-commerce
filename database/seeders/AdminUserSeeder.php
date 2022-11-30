@@ -19,7 +19,8 @@ class AdminUserSeeder extends Seeder
             'name' => 'Creative Studio',
             'email' => 'web415@gmail.com',
             'password' => bcrypt('123456789'),
-            'email_verified_at' => now()
+            'email_verified_at' => now(),
+            'is_admin' => true
         ]);
     }
 }
